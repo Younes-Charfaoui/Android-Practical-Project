@@ -12,12 +12,6 @@
     android:showDividers="middle"
     tools:context=".IDEListActivity">
 
-    <!--
-    This layout is a two-pane layout for the Items
-    master/detail flow.
-    
-    -->
-
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ideRecylcerView"

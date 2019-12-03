@@ -14,29 +14,6 @@ class IDEAdapter(
     private val values: List<IDEContent.IDEItem>,
     private val isTablet: Boolean) : RecyclerView.Adapter<IDEAdapter.IDEViewHolder>() {
 
-    private val onClickListener: View.OnClickListener
-
-    init {
-        onClickListener = View.OnClickListener { view ->
-            val item = view.tag as IDEContent.IDEItem
-            if (isTablet) {
-                val fragment = IDEDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(IDEDetailFragment.ARG_ITEM_ID, item.id)
-                    }
-                }
-                parentActivity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.ide_detail_container, fragment)
-                    .commit()
-            } else {
-                val intent = Intent(view.context, IDEDetailActivity::class.java).apply {
-                    putExtra(IDEDetailFragment.ARG_ITEM_ID, item.id)
-                }
-                view.context.startActivity(intent)
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IDEViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -48,11 +25,27 @@ class IDEAdapter(
         val item = values[position]
         holderIDE.idView.text = item.id
         holderIDE.contentView.text = item.name
-
-        with(holderIDE.itemView) {
-            tag = item
-            setOnClickListener(onClickListener)
+        holderIDE.itemView.tag = item
+        holderIDE.itemView.setOnClickListener {
+            val item = it.tag as IDEContent.IDEItem
+            if (isTablet) {
+                val fragment = IDEDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(IDEDetailFragment.ARG_ITEM_ID, item.id)
+                    }
+                }
+                parentActivity.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.ide_detail_container, fragment)
+                    .commit()
+            } else {
+                val intent = Intent(it.context, IDEDetailActivity::class.java).apply {
+                    putExtra(IDEDetailFragment.ARG_ITEM_ID, item.id)
+                }
+                it.context.startActivity(intent)
+            }
         }
+
     }
 
     override fun getItemCount() = values.size
