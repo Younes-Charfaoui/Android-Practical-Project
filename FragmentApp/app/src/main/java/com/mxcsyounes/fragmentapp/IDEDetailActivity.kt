@@ -1,10 +1,8 @@
 package com.mxcsyounes.fragmentapp
 
-import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 class IDEDetailActivity : AppCompatActivity() {
@@ -12,7 +10,9 @@ class IDEDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
-        setSupportActionBar(detail_toolbar)
+        setSupportActionBar(toolbar)
+        toolbar.title = "Me"
+        supportActionBar?.title = "Me"
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -27,7 +27,7 @@ class IDEDetailActivity : AppCompatActivity() {
             }
 
             supportFragmentManager.beginTransaction()
-                .add(R.id.item_detail_container, fragment)
+                .add(R.id.ide_detail_container, fragment)
                 .commit()
         }
     }
@@ -35,7 +35,7 @@ class IDEDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             android.R.id.home -> {
-                navigateUpTo(Intent(this, IDEListActivity::class.java))
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -12,16 +12,14 @@ import kotlinx.android.synthetic.main.item_list_content.view.*
 class IDEAdapter(
     private val parentActivity: IDEListActivity,
     private val values: List<IDEContent.IDEItem>,
-    private val twoPane: Boolean
-) :
-    RecyclerView.Adapter<IDEAdapter.IDEViewHolder>() {
+    private val isTablet: Boolean) : RecyclerView.Adapter<IDEAdapter.IDEViewHolder>() {
 
     private val onClickListener: View.OnClickListener
 
     init {
         onClickListener = View.OnClickListener { view ->
             val item = view.tag as IDEContent.IDEItem
-            if (twoPane) {
+            if (isTablet) {
                 val fragment = IDEDetailFragment().apply {
                     arguments = Bundle().apply {
                         putString(IDEDetailFragment.ARG_ITEM_ID, item.id)
@@ -29,7 +27,7 @@ class IDEAdapter(
                 }
                 parentActivity.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.item_detail_container, fragment)
+                    .replace(R.id.ide_detail_container, fragment)
                     .commit()
             } else {
                 val intent = Intent(view.context, IDEDetailActivity::class.java).apply {

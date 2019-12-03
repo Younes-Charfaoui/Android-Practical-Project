@@ -18,7 +18,7 @@ class IDEDetailFragment : Fragment() {
         arguments?.let {
             if (it.containsKey(ARG_ITEM_ID)) {
                 item = IDEContent.ideMap[it.getString(ARG_ITEM_ID)]
-                activity?.toolbar_layout?.title = item?.name
+                activity?.toolbar?.title = item?.name
             }
         }
     }
