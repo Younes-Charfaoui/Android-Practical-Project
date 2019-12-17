@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mxcsyounes.broadcastreceivers">
 
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -22,13 +21,13 @@
 
         <receiver
             android:name=".SimpleReceiver"
-            android:exported="false">
+            android:exported="true"
+            android:enabled="true">
+
             <intent-filter>
-                <intent-filter>
-                    <action android:name="com.mxcsyounes.broadcastreceivers.ACTION" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                </intent-filter>
+                <action android:name="com.mxcsyounes.broadcastreceivers.ACTION" />
             </intent-filter>
+
         </receiver>
     </application>
 

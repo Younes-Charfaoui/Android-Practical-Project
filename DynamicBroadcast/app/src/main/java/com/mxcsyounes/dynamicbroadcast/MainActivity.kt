@@ -14,14 +14,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val manager = LocalBroadcastManager.getInstance(this)
+
         manager.registerReceiver(
             SimpleReceiver(),
-            IntentFilter.create("com.mxcsyounes.dynamicbroadcast.ACTION", "MIME")
+            IntentFilter("com.mxcsyounes.dynamicbroadcast.ACTION")
         )
+
         launchButtn.setOnClickListener {
             manager.sendBroadcast(Intent("com.mxcsyounes.dynamicbroadcast.ACTION"))
         }
     }
 
-    on
+
 }

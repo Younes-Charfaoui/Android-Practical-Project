@@ -13,7 +13,7 @@ class SimpleReceiver : BroadcastReceiver() {
         Log.d("MeTag", "### INTENT Received ###")
         val vibrator: Vibrator? = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator?
 
-        vibrator?.vibrate(500)
+        vibrator?.vibrate(1500)
 
         Toast.makeText(context, "### INTENT Received ###", Toast.LENGTH_SHORT).show()
     }
