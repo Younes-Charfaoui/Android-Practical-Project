@@ -25,7 +25,7 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity(),
     LoaderManager.LoaderCallbacks<ArrayList<Earthquake>> {
     lateinit var adapter: CustomEarthquakeAdapter
-    internal var earthquakes: ArrayList<Earthquake>? = null
+    lateinit var earthquakes: ArrayList<Earthquake>
     lateinit var earthquakeListView: ListView
     lateinit var listTv: TextView
     lateinit var listProgress: ProgressBar

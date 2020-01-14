@@ -5,7 +5,6 @@
     <item
         android:id="@+id/action_settings"
         android:title="@string/settings_menu_item"
-        android:icon="@drawable/ic_settings_white_18dp"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 </menu>
