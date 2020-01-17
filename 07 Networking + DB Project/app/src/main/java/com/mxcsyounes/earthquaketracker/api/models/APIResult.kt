@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class APIResult(
     @Expose @SerializedName("type") val type: String?,
     @Expose @SerializedName("metadata") val metadata: Metadata?,
-    @Expose @SerializedName("features") val features: Feature?,
+    @Expose @SerializedName("features") val features: List<Feature>?,
     @Expose @SerializedName("bbox") val bbox: Array<Double>
 ) {
 
