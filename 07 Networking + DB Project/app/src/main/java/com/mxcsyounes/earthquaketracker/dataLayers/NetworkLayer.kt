@@ -7,7 +7,6 @@ class NetworkLayer {
     private val webService: EarthquakeService = EarthquakeService.retrofit
         .create(EarthquakeService::class.java)
 
-    suspend fun searchBestCompany(price: String, country: String, currency: String, userId: String) =
-        webService.getRecentEarthquakeAsync().await()
+    suspend fun searchBestCompany() = webService.getRecentEarthquakeAsync().await()
 
 }

@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Property(
-    @Expose @SerializedName("mag") val mag: Int,
+    @Expose @SerializedName("mag") val mag: Double,
     @Expose @SerializedName("place") val place: String,
-    @Expose @SerializedName("time") val time: Int,
-    @Expose @SerializedName("updated") val updated: Int,
+    @Expose @SerializedName("time") val time: Long,
+    @Expose @SerializedName("updated") val updated: Long,
     @Expose @SerializedName("tz") val tz: Int,
     @Expose @SerializedName("url") val url: String,
     @Expose @SerializedName("detail") val detail: String,

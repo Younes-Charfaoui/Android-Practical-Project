@@ -4,12 +4,18 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.mxcsyounes.earthquaketracker.R
+import com.mxcsyounes.earthquaketracker.dataLayers.NetworkLayer
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +34,19 @@ class MainActivity : AppCompatActivity() {
                 this, Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 55)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                55
+            )
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val networkLayer = NetworkLayer()
+            val result = networkLayer.searchBestCompany()
+            withContext(Dispatchers.Main) {
+                Log.d("ME", result.features.toString())
+            }
         }
     }
 

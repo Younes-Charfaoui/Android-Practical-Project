@@ -12,8 +12,6 @@ import java.util.concurrent.TimeUnit
 
 interface EarthquakeService {
 
-
-
     companion object {
         private const val BASE_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/"
         private const val ALL_HOUR = BASE_URL + "all_hour.geojson"
