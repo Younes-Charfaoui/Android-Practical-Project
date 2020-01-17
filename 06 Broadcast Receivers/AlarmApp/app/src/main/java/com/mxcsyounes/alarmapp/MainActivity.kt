@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             alarmManager.set(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 5000,
+                System.currentTimeMillis() + 5000 + 2000,
                 loggerReceiverPendingIntent
             )
 
@@ -48,14 +48,14 @@ class MainActivity : AppCompatActivity() {
             alarmManager.setRepeating(
                 AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + 5000,
-                3000,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 notificationReceiverPendingIntent
             )
 
             alarmManager.setRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000,
-               3000,
+                SystemClock.elapsedRealtime() + 5000 + 2000,
+               AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 loggerReceiverPendingIntent
             )
 
@@ -66,14 +66,14 @@ class MainActivity : AppCompatActivity() {
             alarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + 5000,
-                3_000,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 notificationReceiverPendingIntent
             )
 
             alarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000,
-                3_000,
+                SystemClock.elapsedRealtime() + 5000 + 2000,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 loggerReceiverPendingIntent
             )
             Toast.makeText(this, "Inexact Alarm set", Toast.LENGTH_SHORT).show()
