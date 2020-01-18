@@ -1,4 +1,4 @@
-package com.mxcsyounes.earthquaketracker.ui
+package com.mxcsyounes.earthquaketracker.ui.mapActivity
 
 
 import android.content.pm.PackageManager
@@ -75,6 +75,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.i("Leme", "Place: " + place.name + ", " + place.id)
+                val latLng = place.latLng
+                if (latLng != null) {
+
+                }
             }
 
             override fun onError(status: Status) {

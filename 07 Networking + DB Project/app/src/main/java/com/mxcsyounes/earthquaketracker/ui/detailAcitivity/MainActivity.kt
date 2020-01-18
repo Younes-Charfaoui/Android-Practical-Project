@@ -1,22 +1,16 @@
-package com.mxcsyounes.earthquaketracker.ui
+package com.mxcsyounes.earthquaketracker.ui.detailAcitivity
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.mxcsyounes.earthquaketracker.R
-import com.mxcsyounes.earthquaketracker.dataLayers.NetworkLayer
+import com.mxcsyounes.earthquaketracker.ui.mapActivity.MapsActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,13 +36,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val networkLayer = NetworkLayer()
-            val result = networkLayer.searchByLatLang(37.6732, 141.7156)
-            withContext(Dispatchers.Main) {
-                Log.d("ME", result.earthquakes.toString())
-            }
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
