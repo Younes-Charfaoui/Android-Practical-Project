@@ -25,7 +25,7 @@ class EarthquakeRepository(application: Application) {
         allEarthquake = earthquakeDAO.getAllEarthquake()
     }
 
-    fun getEarthquakesFromLatLong(latLng: LatLng): List<Earthquake> {
+     fun getEarthquakesFromLatLong(latLng: LatLng): List<Earthquake> {
         var result: APIResult? = null
         CoroutineScope(Dispatchers.IO).launch {
             result = networkLayer.searchByLatLang(latLng.latitude, latLng.longitude)
