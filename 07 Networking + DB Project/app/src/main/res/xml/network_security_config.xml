@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Don't allow clear text traffic for all domains unless is not in the domain-config -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

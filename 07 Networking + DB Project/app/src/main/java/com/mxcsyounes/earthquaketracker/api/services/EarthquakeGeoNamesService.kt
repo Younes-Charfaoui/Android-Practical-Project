@@ -9,12 +9,13 @@ import retrofit2.http.Query
 interface EarthquakeGeoNamesService {
 
     companion object {
-        private const val BASE_URL = "http://api.geonames.org/earthquakesJSON"
+        private const val BASE_URL = "http://api.geonames.org/"
+        private const val ENDPOINT = BASE_URL + "earthquakesJSON"
 
         val retrofit: Retrofit = RetrofitUtils.createRetrofit(BASE_URL)
     }
 
-    @GET(BASE_URL)
+    @GET(ENDPOINT)
     fun getEarthquakeByLatLangAsync(
         @Query("north") north: Double,
         @Query("south") south: Double,

@@ -25,9 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
-
-
         fab.setOnClickListener {
             startActivity(Intent(this, MapsActivity::class.java))
         }
@@ -47,9 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val networkLayer = NetworkLayer()
-            val result = networkLayer.searchBestCompany()
+            val result = networkLayer.searchByLatLang(37.6732, 141.7156)
             withContext(Dispatchers.Main) {
-                Log.d("ME", result.features.toString())
+                Log.d("ME", result.earthquakes.toString())
             }
         }
     }
