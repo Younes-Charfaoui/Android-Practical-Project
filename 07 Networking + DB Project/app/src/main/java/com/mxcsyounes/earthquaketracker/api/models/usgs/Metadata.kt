@@ -1,4 +1,4 @@
-package com.mxcsyounes.earthquaketracker.api.models
+package com.mxcsyounes.earthquaketracker.api.models.usgs
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

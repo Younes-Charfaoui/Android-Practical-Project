@@ -3,10 +3,13 @@ package com.mxcsyounes.earthquaketracker.ui
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,6 +18,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.mxcsyounes.earthquaketracker.R
 import kotlinx.android.synthetic.main.activity_maps.*
 
@@ -28,11 +35,52 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
+
+        val apiKey = "AIzaSyBMniVmj6XeovDTMA0Rkh6j1br6T4TwWxA"
+
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(this, apiKey);
+        }
+
+        val placesClient = Places.createClient(this);
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
         myLocationFab.hide()
+
+        val autocompleteFragment =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
+
+        autocompleteFragment!!.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.LAT_LNG,
+                Place.Field.NAME,
+                Place.Field.ADDRESS
+            )
+        )
+
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                Log.i("Leme", "Place: " + place.name + ", " + place.id)
+            }
+
+            override fun onError(status: Status) {
+                Log.i("Leme", "An error occurred: $status")
+            }
+        })
 
         myLocationFab.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
