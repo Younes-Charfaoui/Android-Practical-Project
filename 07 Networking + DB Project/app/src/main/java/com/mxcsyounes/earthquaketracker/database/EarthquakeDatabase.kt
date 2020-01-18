@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.mxcsyounes.earthquaketracker.api.models.geonames.Earthquake
 import com.mxcsyounes.earthquaketracker.database.dao.EarthquakeDAO
 
-@Database(entities = [Earthquake::class], version = 1)
+@Database(entities = [Earthquake::class], version = 1, exportSchema = false)
 abstract class EarthquakeDatabase : RoomDatabase() {
 
     abstract fun earthquakeDao(): EarthquakeDAO
