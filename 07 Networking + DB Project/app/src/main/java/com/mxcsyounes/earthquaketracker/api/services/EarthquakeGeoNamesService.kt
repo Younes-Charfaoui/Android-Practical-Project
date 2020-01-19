@@ -22,6 +22,6 @@ interface EarthquakeGeoNamesService {
         @Query("east") east: Double,
         @Query("west") west: Double,
         @Query("username") username: String = "mxcsyounes",
-        @Query("maxRows") maxRows: Int = 10
+        @Query("maxRows") maxRows: Int = 40
     ): Deferred<APIResult>
 }

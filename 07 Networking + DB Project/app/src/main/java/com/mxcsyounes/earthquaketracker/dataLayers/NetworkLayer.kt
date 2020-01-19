@@ -16,10 +16,10 @@ class NetworkLayer {
     //Latitude horizonal
     suspend fun searchByLatLang(latitude: Double, longitude: Double) =
         webGeoNamesService.getEarthquakeByLatLangAsync(
-            latitude - 1,
             latitude + 1,
-            longitude - 1,
-            longitude + 1
+            latitude - 1,
+            longitude + 1,
+            longitude - 1
         ).await()
 
 }
