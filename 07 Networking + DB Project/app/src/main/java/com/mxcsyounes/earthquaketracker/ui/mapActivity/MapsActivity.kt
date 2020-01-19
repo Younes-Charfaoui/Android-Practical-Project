@@ -50,7 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapsViewModel = ViewModelProviders.of(this).get(MapsViewModel::class.java)
 
-        val apiKey = "AIzaSyBMniVmj6XeovDTMA0Rkh6j1br6T4TwWxA"
+        val apiKey = getString(R.string.api_key_places)
 
 
         if (!Places.isInitialized()) {
