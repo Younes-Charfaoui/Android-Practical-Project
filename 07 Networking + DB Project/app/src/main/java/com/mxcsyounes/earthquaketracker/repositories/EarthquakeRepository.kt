@@ -32,6 +32,4 @@ class EarthquakeRepository(application: Application) {
         }
         return result!!.earthquakes
     }
-
-
 }

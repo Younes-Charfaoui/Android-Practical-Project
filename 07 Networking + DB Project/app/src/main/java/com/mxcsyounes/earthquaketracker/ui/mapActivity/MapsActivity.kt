@@ -1,6 +1,8 @@
 package com.mxcsyounes.earthquaketracker.ui.mapActivity
 
 
+import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
@@ -24,6 +27,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.mxcsyounes.earthquaketracker.R
 import com.mxcsyounes.earthquaketracker.dataLayers.NetworkLayer
+import com.mxcsyounes.earthquaketracker.ui.detailAcitivity.DetailActivity
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +52,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
+        requestPermission()
+
         mapsViewModel = ViewModelProviders.of(this).get(MapsViewModel::class.java)
 
         val apiKey = getString(R.string.api_key_places)
@@ -56,8 +62,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (!Places.isInitialized()) {
             Places.initialize(this, apiKey)
         }
-
-        //val placesClient = Places.createClient(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -112,21 +116,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     android.Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                fusedLocationClient.lastLocation.addOnCompleteListener {
-                    val location = it.result
-                    if (location != null)
-                        map.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(
-                                LatLng(
-                                    location.latitude,
-                                    location.longitude
-                                ), 15.0f
-                            )
-                        )
-                }
+                getLastLocationOnMap()
             }
         }
+
+        detailButton.setOnClickListener {
+            startActivity(Intent(this, DetailActivity::class.java))
+        }
         mapFragment.getMapAsync(this)
+    }
+
+    private fun getLastLocationOnMap() {
+        fusedLocationClient.lastLocation.addOnCompleteListener {
+            val location = it.result
+            if (location != null)
+                animateCamera(LatLng(location.latitude, location.longitude))
+        }
+    }
+
+    private fun requestPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                55
+            )
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -139,18 +159,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         ) {
             map.isMyLocationEnabled = true
             map.uiSettings.isMyLocationButtonEnabled = false
-            fusedLocationClient.lastLocation.addOnCompleteListener {
-                val location = it.result
-                if (location != null)
-                    map.animateCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(
-                                location.latitude,
-                                location.longitude
-                            ), 15.0f
-                        )
-                    )
-            }
+            getLastLocationOnMap()
         } else {
             Toast.makeText(this, "Please accept permission", Toast.LENGTH_LONG).show()
         }
