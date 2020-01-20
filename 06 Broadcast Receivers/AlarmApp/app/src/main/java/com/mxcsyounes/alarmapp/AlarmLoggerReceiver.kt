@@ -11,6 +11,5 @@ class AlarmLoggerReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d("TAGME", "The current Time is ${System.currentTimeMillis()}")
-
     }
 }

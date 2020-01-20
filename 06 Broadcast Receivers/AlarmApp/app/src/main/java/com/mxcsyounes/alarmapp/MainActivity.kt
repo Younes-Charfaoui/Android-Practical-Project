@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val INITIAL_ALARM_DELAY = 5000
+    private val JITTER = 2000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         singleAlarm.setOnClickListener {
             alarmManager.set(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 5000,
+                System.currentTimeMillis() + INITIAL_ALARM_DELAY,
                 notificationReceiverPendingIntent
             )
 
             alarmManager.set(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 5000 + 2000,
+                System.currentTimeMillis() + INITIAL_ALARM_DELAY + JITTER,
                 loggerReceiverPendingIntent
             )
 
@@ -47,14 +50,14 @@ class MainActivity : AppCompatActivity() {
         repeatingAlarm.setOnClickListener {
             alarmManager.setRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000,
+                SystemClock.elapsedRealtime() + INITIAL_ALARM_DELAY,
                 AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 notificationReceiverPendingIntent
             )
 
             alarmManager.setRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000 + 2000,
+                SystemClock.elapsedRealtime() + INITIAL_ALARM_DELAY + JITTER,
                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 loggerReceiverPendingIntent
             )
@@ -65,14 +68,14 @@ class MainActivity : AppCompatActivity() {
         inxactAlarm.setOnClickListener {
             alarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000,
+                SystemClock.elapsedRealtime() + INITIAL_ALARM_DELAY,
                 AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 notificationReceiverPendingIntent
             )
 
             alarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 5000 + 2000,
+                SystemClock.elapsedRealtime() + INITIAL_ALARM_DELAY + JITTER,
                 AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                 loggerReceiverPendingIntent
             )
