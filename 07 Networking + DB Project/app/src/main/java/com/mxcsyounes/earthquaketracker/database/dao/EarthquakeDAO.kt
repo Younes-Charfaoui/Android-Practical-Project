@@ -11,11 +11,11 @@ interface EarthquakeDAO {
     fun getAllEarthquake(): LiveData<List<Earthquake>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg earthquake: Earthquake)
+    suspend fun insertAll(earthquake: List<Earthquake>)
 
     @Delete
-    fun delete(earthquake: Earthquake)
+    suspend fun delete(earthquake: Earthquake)
 
     @Query("DELETE FROM earthquakes")
-    fun deleteAll()
+    suspend fun deleteAll(): Int
 }

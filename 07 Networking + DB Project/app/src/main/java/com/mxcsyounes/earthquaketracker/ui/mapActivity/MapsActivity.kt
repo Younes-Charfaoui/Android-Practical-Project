@@ -27,7 +27,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.mxcsyounes.earthquaketracker.R
-import com.mxcsyounes.earthquaketracker.api.models.geonames.APIResult
+import com.mxcsyounes.earthquaketracker.api.models.geonames.Earthquake
 import com.mxcsyounes.earthquaketracker.ui.detailAcitivity.DetailActivity
 import kotlinx.android.synthetic.main.activity_maps.*
 
@@ -84,14 +84,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val latLng = place.latLng
                 if (latLng != null) {
                     animateCamera(latLng)
-                    mapsViewModel.getEarthquakeFromLatLong(latLng).observe(this@MapsActivity,
-                    Observer<APIResult> {
-                        for (earthquake in it.earthquakes) {
-                            with(earthquake) {
-                                showMarker(eqid, LatLng(lat, lng))
-                            }
-                        }
-                    })
+                    mapsViewModel.getEarthquakeFromLatLong(latLng, this@MapsActivity)
+                        .observe(this@MapsActivity,
+                            Observer<List<Earthquake>> {
+                                for (earthquake in it) {
+                                    with(earthquake) {
+                                        showMarker(eqid, LatLng(lat, lng))
+                                    }
+                                }
+                            })
                 }
             }
 

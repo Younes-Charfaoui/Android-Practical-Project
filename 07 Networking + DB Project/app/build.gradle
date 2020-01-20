@@ -67,4 +67,8 @@ dependencies {
 
     implementation 'com.google.android.libraries.places:places:2.1.0'
 
+    // Kotlin coroutine dependencies
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+
 }
