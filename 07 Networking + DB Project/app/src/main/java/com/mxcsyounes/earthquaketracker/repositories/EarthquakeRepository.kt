@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
 class EarthquakeRepository(application: Application) {
 
     private var earthquakeDAO: EarthquakeDAO
-    private lateinit var allEarthquake: LiveData<List<Earthquake>>
+    var allEarthquake: LiveData<List<Earthquake>>
     private val networkLayer = NetworkLayer()
 
     init {
         val database = EarthquakeDatabase.getInstance(application)
         earthquakeDAO = database.earthquakeDao()
-
+        allEarthquake = earthquakeDAO.getAllEarthquake()
     }
 
     fun getEarthquakesFromLatLong(latLng: LatLng) =
@@ -33,10 +33,6 @@ class EarthquakeRepository(application: Application) {
             Log.d("TAGME", "result was $number")
             earthquakeDAO.insertAll(earthquakes)
         }
-    }
-
-    fun loadData() {
-        allEarthquake = earthquakeDAO.getAllEarthquake()
     }
 
 }

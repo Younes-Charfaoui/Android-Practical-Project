@@ -83,4 +83,9 @@ class EarthquakeAdapter : RecyclerView.Adapter<EarthquakeAdapter.EarthquakeViewH
         }
         return ContextCompat.getColor(context, magnitudeColorResourceId)
     }
+
+    fun changeData(it: List<Earthquake>) {
+        data = it
+        notifyDataSetChanged()
+    }
 }
