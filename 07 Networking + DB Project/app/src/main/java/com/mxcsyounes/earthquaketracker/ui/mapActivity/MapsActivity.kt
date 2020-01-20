@@ -87,6 +87,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     mapsViewModel.getEarthquakeFromLatLong(latLng, this@MapsActivity)
                         .observe(this@MapsActivity,
                             Observer<List<Earthquake>> {
+                                removeMarkers()
                                 for (earthquake in it) {
                                     with(earthquake) {
                                         showMarker(eqid, LatLng(lat, lng), earthquake.magnitude)
@@ -177,13 +178,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun removeMarkers() {
+        for (marker in currentLocationMarkers.values) {
+            marker.remove()
+        }
+    }
+
     fun animateCamera(location: LatLng) {
         val latLng = LatLng(location.latitude, location.longitude)
         map.animateCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionWithBearing(latLng)))
     }
 
     private fun getCameraPositionWithBearing(latLng: LatLng): CameraPosition {
-        return CameraPosition.Builder().target(latLng).zoom(15.0f).build()
+        return CameraPosition.Builder().target(latLng).zoom(10.0f).build()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
