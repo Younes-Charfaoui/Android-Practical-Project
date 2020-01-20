@@ -2,6 +2,7 @@ package com.mxcsyounes.earthquaketracker.api.services
 
 import com.mxcsyounes.earthquaketracker.api.models.geonames.APIResult
 import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,12 +17,12 @@ interface EarthquakeGeoNamesService {
     }
 
     @GET(ENDPOINT)
-    fun getEarthquakeByLatLangAsync(
+    fun getEarthquakeByLatLang(
         @Query("north") north: Double,
         @Query("south") south: Double,
         @Query("east") east: Double,
         @Query("west") west: Double,
         @Query("username") username: String = "mxcsyounes",
         @Query("maxRows") maxRows: Int = 40
-    ): Deferred<APIResult>
+    ): Call<APIResult>
 }

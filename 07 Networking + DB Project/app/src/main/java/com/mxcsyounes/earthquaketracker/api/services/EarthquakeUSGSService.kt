@@ -4,6 +4,7 @@ import com.mxcsyounes.earthquaketracker.api.models.usgs.APIResult
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
@@ -18,5 +19,5 @@ interface EarthquakeUSGSService {
     }
 
     @GET(ALL_HOUR)
-    fun getRecentEarthquakeAsync(): Deferred<APIResult>
+    fun getRecentEarthquakeAsync(): Call<APIResult>
 }
