@@ -34,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.getAllData().observe(this, Observer<List<Earthquake>> {
             detailProgressBar.visibility = View.GONE
             if (it.isEmpty()) {
-
+                emptyView.visibility = View.VISIBLE
             } else {
                 detailRecyclerView.visibility = View.VISIBLE
                 earthquakeAdapter.changeData(it)
@@ -57,7 +57,9 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_delete_all -> {
+                true
+            }
             android.R.id.home -> {
                 onBackPressed()
                 true

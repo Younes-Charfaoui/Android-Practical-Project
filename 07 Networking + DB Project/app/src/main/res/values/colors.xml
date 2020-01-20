@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#78909C</color>
     <color name="colorPrimaryDark">#546E7A</color>
-    <color name="colorAccent">#FF9100</color>
+    <color name="colorAccent">#10CAC9</color>
     <color name="magnitude1">#4A7BA7</color>
     <color name="magnitude2">#04B4B3</color>
     <color name="magnitude3">#10CAC9</color>
