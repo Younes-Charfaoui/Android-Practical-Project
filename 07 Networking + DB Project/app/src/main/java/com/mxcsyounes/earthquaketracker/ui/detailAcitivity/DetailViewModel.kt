@@ -14,4 +14,8 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         return earthquakeRepository.allEarthquake
     }
 
+    fun deleteAll() {
+        earthquakeRepository.deleteAll()
+    }
+
 }

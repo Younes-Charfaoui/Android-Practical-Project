@@ -35,5 +35,11 @@ class EarthquakeRepository(application: Application) {
         }
     }
 
+    fun deleteAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            earthquakeDAO.deleteAll()
+        }
+    }
+
 }
 

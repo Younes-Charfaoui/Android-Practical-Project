@@ -89,7 +89,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             Observer<List<Earthquake>> {
                                 for (earthquake in it) {
                                     with(earthquake) {
-                                        showMarker(eqid, LatLng(lat, lng))
+                                        showMarker(eqid, LatLng(lat, lng), earthquake.magnitude)
                                     }
                                 }
                             })
@@ -159,7 +159,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun showMarker(key: String, currentLocation: LatLng) {
+    private fun showMarker(
+        key: String,
+        currentLocation: LatLng,
+        magnitude: Double
+    ) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         if (!currentLocationMarkers.containsKey(key)) {
             currentLocationMarkers[key] =
@@ -167,6 +171,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker())
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker())
+                        .title("Magnitude of $magnitude")
                 )
             currentLocationMarkers[key]?.tag = key
         }

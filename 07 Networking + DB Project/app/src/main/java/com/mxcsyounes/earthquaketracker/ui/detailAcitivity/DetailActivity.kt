@@ -35,8 +35,10 @@ class DetailActivity : AppCompatActivity() {
             detailProgressBar.visibility = View.GONE
             if (it.isEmpty()) {
                 emptyView.visibility = View.VISIBLE
+                detailRecyclerView.visibility = View.GONE
             } else {
                 detailRecyclerView.visibility = View.VISIBLE
+                emptyView.visibility = View.GONE
                 earthquakeAdapter.changeData(it)
             }
         })
@@ -58,6 +60,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete_all -> {
+                detailViewModel.deleteAll()
                 true
             }
             android.R.id.home -> {
