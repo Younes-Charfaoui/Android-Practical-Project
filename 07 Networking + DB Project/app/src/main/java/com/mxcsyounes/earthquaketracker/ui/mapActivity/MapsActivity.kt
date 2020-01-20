@@ -90,7 +90,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 removeMarkers()
                                 for (earthquake in it) {
                                     with(earthquake) {
-                                        showMarker(eqid, LatLng(lat, lng), earthquake.magnitude)
+                                        showMarker(eqid, LatLng(lat, lng), magnitude, depth)
                                     }
                                 }
                             })
@@ -163,7 +163,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun showMarker(
         key: String,
         currentLocation: LatLng,
-        magnitude: Double
+        magnitude: Double,
+        depth: Double
     ) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         if (!currentLocationMarkers.containsKey(key)) {
@@ -172,6 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker())
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker())
+                        .snippet("Depth of $depth km")
                         .title("Magnitude of $magnitude")
                 )
             currentLocationMarkers[key]?.tag = key
