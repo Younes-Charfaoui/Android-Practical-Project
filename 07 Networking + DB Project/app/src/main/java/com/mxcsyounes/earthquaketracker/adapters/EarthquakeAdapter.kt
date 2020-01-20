@@ -63,7 +63,7 @@ class EarthquakeAdapter : RecyclerView.Adapter<EarthquakeAdapter.EarthquakeViewH
     }
 
     private fun formatDate(date: Date): String {
-        val dateFormat = SimpleDateFormat("MM DD, yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("MM EEE, yyyy", Locale.getDefault())
         return dateFormat.format(date)
     }
 
